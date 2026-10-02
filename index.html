@@ -145,6 +145,18 @@
   .contact-item:hover { border-color: var(--accent); }
   .copyright { margin-top: 40px; font-size: 0.85rem; }
 
+  /* ปุ่มกลับขึ้นบนสุด มุมขวาล่าง */
+  .to-top {
+    position: fixed; z-index: 30; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    width: 48px; height: 48px; border-radius: 999px; border: 0; cursor: pointer;
+    display: grid; place-items: center; background: var(--accent); color: var(--accent-ink);
+    box-shadow: 0 6px 18px rgba(24, 36, 58, 0.25);
+    opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity .2s, transform .2s, visibility .2s;
+  }
+  .to-top.show { opacity: 1; visibility: visible; transform: none; }
+  .to-top:hover { filter: brightness(1.08); }
+  .to-top svg { width: 22px; height: 22px; }
+
   .lightbox {
     position: fixed; inset: 0; z-index: 50; display: none; background: rgba(10, 16, 26, 0.92);
     padding: calc(64px + env(safe-area-inset-top, 0px)) 64px calc(56px + env(safe-area-inset-bottom, 0px));
@@ -203,6 +215,10 @@
     <p class="copyright" id="copyright"></p>
   </div>
 </footer>
+
+<button class="to-top" id="to-top" type="button" aria-label="กลับขึ้นบนสุด" title="กลับขึ้นบนสุด">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="ดูรูปขนาดใหญ่">
   <button class="lb-btn lb-close" id="lb-close" aria-label="ปิด">×</button>
@@ -508,6 +524,16 @@ PROJECTS.forEach((p, i) => {
     render(+t.dataset.view);
   }));
   if (views.length) render(0);
+});
+
+// ปุ่มกลับขึ้นบนสุด แสดงเมื่อเลื่อนลงมาแล้ว
+const toTop = document.getElementById("to-top");
+const syncToTop = () => toTop.classList.toggle("show", scrollY > 600);
+addEventListener("scroll", syncToTop, { passive: true });
+syncToTop();
+toTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  document.getElementById("brand").focus({ preventScroll: true });
 });
 
 // กดรูปเพื่อดูขนาดใหญ่
