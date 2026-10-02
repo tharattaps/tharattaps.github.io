@@ -1,0 +1,554 @@
+<!--
+  วิธีใช้
+  1) เปิดโฟลเดอร์ C:\Senwork\Portfoilo ใน VS Code
+  2) แก้ข้อมูลส่วนตัวและโปรเจกต์ในส่วน <script> ด้านล่าง (ค้นหาคำว่า "แก้ตรงนี้")
+  3) ใส่รูปไว้ในโฟลเดอร์ images/ ตามชื่อไฟล์ที่กำหนดในข้อมูลโปรเจกต์
+     - รูป Figma: เลือก frame ใน Figma > Export > PNG 2x
+     - รูปหน้าเว็บจริง: แคปหน้าจอเว็บที่รันอยู่
+  4) ดูผล: คลิกขวาที่ index.html > Open with Live Server (ติดตั้งส่วนขยาย Live Server ก่อน)
+  5) อัปขึ้น GitHub เป็น repo ชื่อ tharattaps.github.io แล้วเปิดลิงก์ https://tharattaps.github.io
+     (ดูขั้นตอนเต็มใน README.md)
+-->
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portfolio</title>
+<meta name="description" content="Portfolio ธรัฐภรณ์ ศรีดาวเรือง: Front-end, UX/UI และ Graphic Design">
+<meta property="og:title" content="ธรัฐภรณ์ ศรีดาวเรือง | Portfolio">
+<meta property="og:description" content="นักศึกษาวิศวกรรมซอฟต์แวร์ ถนัด Front-end, UX/UI และ Graphic Design">
+<meta property="og:image" content="images/graphic/elf-bubble-tea.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232F5BEA'/><text x='16' y='22' font-size='16' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'>T</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #EEF1F4;
+    --surface: #FFFFFF;
+    --ink: #18243A;
+    --muted: #5B6676;
+    --line: #CDD4DD;
+    --accent: #2F5BEA;
+    --accent-ink: #FFFFFF;
+    --canvas: #E3E7EC;
+    --dot: #C3CAD3;
+    --font: "IBM Plex Sans Thai", "Sarabun", "Leelawadee UI", "Tahoma", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #141B26; --surface: #1C2533; --ink: #E7ECF3; --muted: #9AA6B5;
+      --line: #2E3A4B; --accent: #7C9BFF; --accent-ink: #0F1724; --canvas: #18212E; --dot: #2C3848;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #141B26; --surface: #1C2533; --ink: #E7ECF3; --muted: #9AA6B5;
+    --line: #2E3A4B; --accent: #7C9BFF; --accent-ink: #0F1724; --canvas: #18212E; --dot: #2C3848;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { font-family: var(--font); background: var(--paper); color: var(--ink); line-height: 1.7; font-size: 17px; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* แถบเมนูด้านบน */
+  nav.bar {
+    position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+  }
+  nav.bar .wrap { display: flex; align-items: center; gap: 4px; height: 56px; overflow-x: auto; scrollbar-width: none; }
+  nav.bar .wrap::-webkit-scrollbar { display: none; }
+  nav.bar .brand { font-weight: 700; text-decoration: none; margin-right: auto; padding-right: 16px; white-space: nowrap; }
+  nav.bar a.link { text-decoration: none; color: var(--muted); font-size: 0.95rem; font-weight: 500; padding: 6px 12px; border-radius: 999px; white-space: nowrap; }
+  nav.bar a.link:hover { color: var(--ink); background: var(--surface); }
+
+  header.top { padding: 72px 0 56px; border-bottom: 1px solid var(--line); }
+  .hello { font-size: 1rem; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
+  .name { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+  .role { margin-top: 14px; font-size: 1.15rem; color: var(--muted); max-width: 52ch; }
+  .skills { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .skills .tag { font-size: 0.9rem; padding: 4px 12px; background: var(--surface); border: 1px solid var(--line); }
+  .contact-row { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px;
+    border-radius: 999px; text-decoration: none; font-weight: 600; font-size: 1rem; white-space: nowrap;
+    border: 1.5px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; font-family: inherit;
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn:hover { filter: brightness(1.08); }
+  .btn svg { width: 18px; height: 18px; flex: none; }
+  .head-links { display: flex; flex-direction: column; gap: 10px; align-items: stretch; }
+
+  main { padding: 8px 0 40px; }
+  .group-title { padding: 64px 0 0; }
+  .group-title h2 { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.04em; color: var(--muted); }
+  .group-title p { margin-top: 2px; font-size: 1.5rem; font-weight: 700; }
+  .project { padding: 48px 0 56px; border-bottom: 1px solid var(--line); }
+  .project-head { display: grid; grid-template-columns: 1fr auto; gap: 16px 32px; align-items: start; }
+  .project h3 { font-size: clamp(1.5rem, 3.2vw, 2.1rem); line-height: 1.3; font-weight: 700; }
+  .badge {
+    display: inline-block; margin-bottom: 10px; padding: 2px 12px; border-radius: 6px;
+    font-size: 0.85rem; font-weight: 600; background: var(--surface); border: 1px solid var(--line); color: var(--muted);
+  }
+  .badge.capstone { color: var(--accent); border-color: var(--accent); }
+  .desc { margin-top: 12px; max-width: 64ch; }
+  .points { margin: 12px 0 0 1.2em; max-width: 64ch; color: var(--ink); }
+  .points li { margin-top: 4px; }
+  .meta { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { font-size: 0.85rem; padding: 3px 10px; border-radius: 6px; background: var(--canvas); color: var(--muted); }
+  .private-note { margin-top: 14px; font-size: 0.92rem; color: var(--muted); display: flex; gap: 8px; align-items: center; }
+  .private-note svg { width: 16px; height: 16px; flex: none; }
+
+  .tabs { margin-top: 28px; display: inline-flex; flex-wrap: wrap; padding: 4px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); }
+  .tab {
+    border: 0; background: transparent; font-family: inherit; font-size: 0.95rem; font-weight: 600;
+    padding: 8px 18px; border-radius: 999px; color: var(--muted); cursor: pointer;
+  }
+  .tab[aria-selected="true"] { background: var(--ink); color: var(--paper); }
+
+  /* พื้นที่แสดงรูป แบบกระดานจุดคล้าย canvas ใน Figma */
+  .canvas {
+    margin-top: 16px; padding: 36px 28px 28px; border-radius: 14px; background-color: var(--canvas);
+    background-image: radial-gradient(var(--dot) 1.2px, transparent 1.2px); background-size: 18px 18px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 40px 28px; align-items: start;
+  }
+  .canvas.gallery { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .frame-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .frame button {
+    display: block; width: 100%; padding: 0; border: 0; cursor: zoom-in; background: var(--surface);
+    border-radius: 4px; overflow: hidden; box-shadow: 0 1px 0 var(--line), 0 6px 18px rgba(24, 36, 58, 0.08);
+  }
+  .frame img { width: 100%; height: auto; transition: transform .25s ease; }
+  .frame button:hover img { transform: scale(1.02); }
+  .placeholder {
+    aspect-ratio: 16 / 10; display: grid; place-items: center; padding: 16px; text-align: center;
+    font-size: 0.85rem; color: var(--muted); background: var(--surface); border: 1.5px dashed var(--line);
+  }
+
+  footer.contact { padding: 64px 0 80px; }
+  footer h2 { font-size: 1.8rem; font-weight: 700; }
+  footer p { color: var(--muted); margin-top: 6px; }
+  .contact-list { margin-top: 24px; display: grid; gap: 12px; max-width: 520px; }
+  .contact-item {
+    display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 20px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px; text-decoration: none;
+  }
+  .contact-item span:first-child { color: var(--muted); font-size: 0.92rem; }
+  .contact-item span:last-child { font-weight: 600; word-break: break-all; text-align: right; }
+  .contact-item:hover { border-color: var(--accent); }
+  .copyright { margin-top: 40px; font-size: 0.85rem; }
+
+  .lightbox {
+    position: fixed; inset: 0; z-index: 50; display: none; background: rgba(10, 16, 26, 0.92);
+    padding: calc(64px + env(safe-area-inset-top, 0px)) 64px calc(56px + env(safe-area-inset-bottom, 0px));
+  }
+  .lightbox.open { display: grid; place-items: center; }
+  .lightbox img { max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 4px; }
+  .lb-caption { position: absolute; left: 0; right: 0; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); text-align: center; color: #DDE3EC; font-size: 0.95rem; padding: 0 16px; }
+  .lb-btn {
+    position: absolute; background: rgba(255,255,255,0.14); color: #fff; border: 0; width: 44px; height: 44px;
+    border-radius: 999px; font-size: 1.5rem; line-height: 1; cursor: pointer; display: grid; place-items: center; font-family: inherit;
+  }
+  .lb-close { top: calc(12px + env(safe-area-inset-top, 0px)); right: 16px; }
+  .lb-prev { left: 10px; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 10px; top: 50%; transform: translateY(-50%); }
+
+  @media (max-width: 640px) {
+    header.top { padding: 48px 0 40px; }
+    .project-head { grid-template-columns: 1fr; }
+    .head-links { flex-direction: row; flex-wrap: wrap; }
+    .canvas, .canvas.gallery { padding: 28px 16px 16px; grid-template-columns: 1fr; }
+    .btn { flex: 1 1 auto; justify-content: center; }
+    .lightbox { padding-left: 12px; padding-right: 12px; }
+    .lb-prev, .lb-next { top: auto; bottom: calc(52px + env(safe-area-inset-bottom, 0px)); transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="bar" aria-label="เมนูหลัก">
+  <div class="wrap">
+    <a class="brand" href="#top" id="brand"></a>
+    <a class="link" href="#group-dev">ผลงานพัฒนา</a>
+    <a class="link" href="#group-design">UX/UI</a>
+    <a class="link" href="#group-graphic">กราฟิก</a>
+    <a class="link" href="#contact">ติดต่อ</a>
+  </div>
+</nav>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <p class="hello">สวัสดีค่ะ</p>
+    <h1 class="name" id="name"></h1>
+    <p class="role" id="role"></p>
+    <div class="skills" id="skills"></div>
+    <div class="contact-row" id="contact-top"></div>
+  </div>
+</header>
+
+<main class="wrap" id="projects"></main>
+
+<footer class="contact" id="contact">
+  <div class="wrap">
+    <h2>ติดต่อกลับ</h2>
+    <p>สะดวกให้ติดต่อทางโทรศัพท์หรืออีเมล</p>
+    <div class="contact-list" id="contact-list"></div>
+    <p class="copyright" id="copyright"></p>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="ดูรูปขนาดใหญ่">
+  <button class="lb-btn lb-close" id="lb-close" aria-label="ปิด">×</button>
+  <button class="lb-btn lb-prev" id="lb-prev" aria-label="รูปก่อนหน้า">‹</button>
+  <img id="lb-img" alt="">
+  <button class="lb-btn lb-next" id="lb-next" aria-label="รูปถัดไป">›</button>
+  <p class="lb-caption" id="lb-caption"></p>
+</div>
+
+<script>
+/* ===================== แก้ตรงนี้: ข้อมูลส่วนตัว ===================== */
+const PROFILE = {
+  name: "ธรัฐภรณ์ ศรีดาวเรือง",
+  short: "Tharattaporn S.",
+  role: "นักศึกษาคณะวิศวกรรมศาสตร์และเทคโนโลยี สาขาวิศวกรรมซอฟต์แวร์ ถนัด Front-end และออกแบบ UX/UI และงาน Graphic Design สนใจตำแหน่ง Full Stack Developer",
+  skills: ["Front-end", "UX/UI Design", "Figma", "Angular", "TypeScript", "HTML & CSS", "Bootstrap", "Flutter", "Graphic Design", "Digital Illustration"],
+  phone: "081-980-0711",
+  email: "tharattaP.S.2000@gmail.com",
+  github: "https://github.com/tharattaps"
+};
+
+/* ===================== แก้ตรงนี้: กลุ่มผลงาน (หัวข้อคั่นแต่ละส่วน) ===================== */
+const GROUPS = {
+  dev:     { id: "group-dev",     label: "DEVELOPMENT", title: "ผลงานพัฒนาเว็บและแอป" },
+  design:  { id: "group-design",  label: "UX/UI DESIGN", title: "งานออกแบบ UX/UI ใน Figma" },
+  graphic: { id: "group-graphic", label: "GRAPHIC DESIGN", title: "ผลงานกราฟิกและภาพวาดดิจิทัล" }
+};
+
+/* ===================== แก้ตรงนี้: โปรเจกต์ =====================
+   group:  "dev" | "design" | "graphic" (ส่วนที่จะแสดง)
+   type:   "capstone" = โปรเจกต์หลัก (repo ส่วนตัว ไม่มีลิงก์ GitHub)
+           "project"  = โปรเจกต์ทั่วไป (มีลิงก์ GitHub)
+           "design"   = งานออกแบบที่มีแต่ Figma
+           "graphic"  = งานกราฟิก / ภาพวาด
+   github: ลิงก์ repo หรือ null ถ้าไม่ต้องการแสดง
+   figma:  ลิงก์ไฟล์ Figma หรือ null
+   design: รูปที่ export จาก Figma ใส่ [] ถ้าไม่มี
+   live:   รูปแคปหน้าเว็บ/แอปที่รันจริง
+   art:    รูปงานกราฟิก
+   label:  ชื่อหน้าจอ แสดงเหนือรูปเหมือนชื่อ frame ใน Figma
+*/
+const PROJECTS = [
+  {
+    group: "dev",
+    type: "capstone",
+    badge: "โปรเจกต์หลัก · กำลังพัฒนา",
+    title: "HomJai OonJai (ห่มใจอุ่นใจ)",
+    desc: "เว็บแชตแบบไม่ระบุตัวตน ไม่ต้องสมัครสมาชิก กดปุ่มเดียวเข้าใช้งาน เลือกห้องตามความรู้สึก แล้วระบบจับคู่ให้คุยแบบ 1:1 หรือแชตกลุ่มสูงสุด 5 คน รับผิดชอบงานออกแบบ UX/UI ใน Figma และพัฒนา Front-end ด้วย Angular",
+    points: [
+      "3 โหมดห้องแชต: Happy & Casual / Heal & Comfort / Advice & Mind Clearing แต่ละโหมดมีโทนสีของตัวเอง",
+      "ข้อความทุกข้อความผ่านการกรองฝั่งเซิร์ฟเวอร์ ปิดคำหยาบ และบล็อกการถามหรือให้ข้อมูลส่วนตัว (ชื่อ อายุ เบอร์โทร อีเมล LINE, IG, Facebook ฯลฯ)",
+      "ไม่เก็บประวัติข้อความ ออกจากห้องแล้วข้อความหายทันที และกด \"หาเพื่อนใหม่\" เพื่อจับคู่ใหม่ได้เลย",
+      "แชตแบบ realtime ผ่าน WebSocket รองรับ SSR และ deploy ด้วย Docker"
+    ],
+    stack: ["Figma", "Angular", "TypeScript", "SSR", "WebSocket", "Node.js", "Docker"],
+    github: null,
+    figma: "https://www.figma.com/design/rS5WD7Ypjfuf6lNDT7d5Jt/HomJai-OonJai",
+    design: [
+      { src: "images/homjai/figma-index.jpg", label: "Desktop index" },
+      { src: "images/homjai/figma-mode-select.jpg", label: "Desktop - 2 (เลือกโหมด)" },
+      { src: "images/homjai/figma-chat-happy.jpg", label: "Chat · Happy & Casual" },
+      { src: "images/homjai/figma-chat-heal.jpg", label: "Chat · Heal & Comfort" },
+      { src: "images/homjai/figma-chat-advice.jpg", label: "Chat · Advice & Mind Clearing" }
+    ],
+    live: [
+      { src: "images/homjai/live-landing.png", label: "หน้าแรก" },
+      { src: "images/homjai/live-mode-select.png", label: "หน้าเลือกโหมด" },
+      { src: "images/homjai/live-guidelines.png", label: "คำแนะนำก่อนเข้าห้อง" },
+      { src: "images/homjai/live-chat-happy.png", label: "แชต Happy & Casual (ระบบปิดข้อมูลส่วนตัวเป็น ***)" },
+      { src: "images/homjai/live-chat-heal.png", label: "แชต Heal & Comfort" },
+      { src: "images/homjai/live-chat-advice.png", label: "แชต Advice & Mind Clearing" },
+      { src: "images/homjai/live-leave.png", label: "ยืนยันออกจากห้อง" }
+    ]
+  },
+  {
+    group: "dev",
+    type: "project",
+    title: "Flutter To-Do List + Firebase",
+    desc: "แอปจดรายการสิ่งที่ต้องทำด้วย Flutter บันทึกข้อมูลลง Firebase Firestore และตรวจสอบข้อมูลก่อนบันทึก",
+    points: [
+      "หน้า Tasks และ Add สลับด้วย BottomNavigationBar + IndexedStack",
+      "บันทึก title / description ลงคอลเล็กชัน tasks และแสดงผลด้วย ListView",
+      "Validation ห้ามช่องว่าง พร้อมข้อความเตือนใต้ช่องกรอก"
+    ],
+    stack: ["Flutter", "Dart", "Firebase Firestore"],
+    github: "https://github.com/tharattaps/flutter_todolist",
+    design: [],
+    live: [
+      { src: "images/flutter/01_tasks_page.png", label: "หน้า Tasks" },
+      { src: "images/flutter/02_add_page.png", label: "หน้า Add" },
+      { src: "images/flutter/03_add_validation.png", label: "Validation" }
+    ]
+  },
+  {
+    group: "dev",
+    type: "project",
+    title: "Portfolio Landing Page (Angular + Bootstrap)",
+    desc: "หน้า Landing Page แนะนำตัวเอง \"Hi, I'm Sen · Design & Developer student\" มี Navbar แบบกระจกโปร่งแสง Hero section ไล่สีเหลืองส้ม เส้นคลื่น SVG คั่นส่วน และการ์ดคำนวณตัวเลข (x10) ที่ผูกข้อมูลด้วย Angular",
+    stack: ["Angular", "Bootstrap 5", "Bootstrap Icons", "CSS"],
+    github: "https://github.com/tharattaps/LAB4",
+    design: [],
+    live: [
+      { src: "images/lab4/live-home.png", label: "หน้าแรก" }
+    ]
+  },
+  {
+    group: "dev",
+    type: "project",
+    title: "Profile Page (Angular)",
+    desc: "หน้าโปรไฟล์ส่วนตัวด้วย Angular แสดงข้อมูลแนะนำตัว ทักษะ (Graphic Design, HTML & CSS, UX/UI, Drawing & Animation) แกลเลอรีรูปภาพ และช่องทางติดต่อ",
+    stack: ["Angular", "TypeScript", "CSS"],
+    github: "https://github.com/tharattaps/lab-angular-app1",
+    design: [],
+    live: [
+      { src: "images/angular-profile/live-profile.png", label: "หน้าโปรไฟล์" }
+    ]
+  },
+  {
+    group: "dev",
+    type: "project",
+    title: "Profile Website (Bootstrap 5)",
+    desc: "เว็บไซต์โปรไฟล์หลายหน้าโทนสีฤดูร้อน ประกอบด้วยหน้าโปรไฟล์แบบการ์ด หน้าแกลเลอรีพร้อม Carousel และหน้าตาราง My Favorite Things พร้อมฟอร์มเพิ่มรายการ",
+    stack: ["HTML", "Bootstrap 5", "CSS"],
+    github: "https://github.com/tharattaps/profile-bootstrap5-lab",
+    design: [],
+    live: [
+      { src: "images/bootstrap-profile/live-profile.png", label: "หน้าโปรไฟล์" },
+      { src: "images/bootstrap-profile/live-gallery.png", label: "หน้าแกลเลอรี" },
+      { src: "images/bootstrap-profile/live-favorite.png", label: "หน้า My Favorite Things" }
+    ]
+  },
+  {
+    group: "design",
+    type: "design",
+    title: "E-shop: ร้านเติมเกมและแพ็กไอเทม",
+    desc: "ออกแบบ UI เว็บร้านค้าออนไลน์สำหรับเติมเกมและซื้อแพ็กไอเทม ธีมเกม Blue Archive ครอบคลุม flow ตั้งแต่หน้าแรก เข้าสู่ระบบ เลือกแพ็ก กรอกข้อมูลเติมเกม จนถึงหน้าชำระเงิน",
+    points: [
+      "เข้าสู่ระบบด้วย Google / Facebook ผ่าน popup",
+      "หน้าบริการให้กรอก UID และเซิร์ฟเวอร์ก่อนเลือกแพ็ก",
+      "แถบข้อมูลจุดเด่นของร้านด้านล่าง Hero เพื่อสร้างความมั่นใจ"
+    ],
+    stack: ["Figma", "UX/UI", "E-commerce"],
+    github: null,
+    figma: "https://www.figma.com/design/dVOjZIfCbY0JgfKxGH3oeG/E-shop",
+    design: [
+      { src: "images/eshop/figma-home.jpg", label: "Home" },
+      { src: "images/eshop/figma-login.jpg", label: "Login" },
+      { src: "images/eshop/figma-packs.jpg", label: "Packs" },
+      { src: "images/eshop/figma-service.jpg", label: "Service" },
+      { src: "images/eshop/figma-products.jpg", label: "Products" },
+      { src: "images/eshop/figma-shopping.jpg", label: "Shopping" }
+    ],
+    live: []
+  },
+  {
+    group: "design",
+    type: "design",
+    title: "Book Store: ร้านหนังสือการ์ตูนออนไลน์",
+    desc: "ออกแบบ UI ร้านหนังสือการ์ตูน (มังงะ) ออนไลน์ โทนสีพาสเทลชมพูฟ้า มีหน้ารวมมังงะใหม่และยอดนิยม ระบบสั่งจองล่วงหน้า (Pre-Order) และตะกร้าสินค้าที่กรอกที่อยู่และเลือกช่องทางชำระเงินได้ในหน้าเดียว",
+    points: [
+      "กำหนด Color palette 5 สีก่อนเริ่มออกแบบเพื่อให้ทุกหน้าเป็นโทนเดียวกัน",
+      "แยก flow ตะกร้าปกติ และตะกร้า Pre-Order ที่แสดงวันวางจำหน่าย",
+      "เข้าสู่ระบบ / สมัครสมาชิก ผ่าน Google, Facebook หรือ Username"
+    ],
+    stack: ["Figma", "UX/UI", "E-commerce"],
+    github: null,
+    figma: "https://www.figma.com/design/HRS9bQY7MhqMF2SdL1cV1Y/Book-Store",
+    design: [
+      { src: "images/bookstore/figma-home.jpg", label: "Home" },
+      { src: "images/bookstore/figma-manga.jpg", label: "Manga" },
+      { src: "images/bookstore/figma-preorder.jpg", label: "Pre-Order" },
+      { src: "images/bookstore/figma-cart.jpg", label: "Cart" },
+      { src: "images/bookstore/figma-preorder-cart.jpg", label: "Pre-Order cart" },
+      { src: "images/bookstore/figma-login.jpg", label: "Login / Sign up" }
+    ],
+    live: []
+  },
+  {
+    group: "graphic",
+    type: "graphic",
+    title: "ภาพวาดตัวละครและ Character Sheet",
+    desc: "งานวาดภาพดิจิทัล ออกแบบตัวละคร ทำ Character Sheet กำหนดพาเลตสีผม ตา ผิว ของชอบ และอารมณ์ของตัวละคร รวมถึงภาพประกอบและการ์ตูนช่อง",
+    stack: ["Digital Painting", "Character Design", "Color Palette", "Comic"],
+    github: null,
+    art: [
+      { src: "images/graphic/elf-bubble-tea.jpg", label: "Elf & Bubble Tea" },
+      { src: "images/graphic/sherlock-taylor-sheet.jpg", label: "Character Sheet · Sherlock Taylor" },
+      { src: "images/graphic/jitsuru-haru-sheet.jpg", label: "Character Sheet · Jitsuru Haru" },
+      { src: "images/graphic/angel-demon.jpg", label: "Angel & Demon" },
+      { src: "images/graphic/comic-saturday.jpg", label: "Comic · Saturday" }
+    ]
+  }
+];
+/* ===================== จบส่วนที่ต้องแก้ ===================== */
+
+const ICONS = {
+  phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>',
+  mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>',
+  github: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.6 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg>',
+  figma: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M8 2h4v6H8a3 3 0 0 1 0-6zM12 2h4a3 3 0 0 1 0 6h-4zM8 8h4v6H8a3 3 0 0 1 0-6zM12 11a3 3 0 1 0 6 0 3 3 0 0 0-6 0zM8 14h4v3a3 3 0 1 1-4-3z"/></svg>',
+  lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>'
+};
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const telHref = p => "tel:" + p.replace(/[^\d+]/g, "");
+// ตอนแก้งานในเครื่อง (Live Server / เปิดไฟล์) จะบอกชื่อไฟล์รูปที่ยังขาด ส่วนบนเว็บจริงจะแสดงข้อความกลาง ๆ
+const isLocal = location.protocol === "file:" || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+
+// ข้อมูลส่วนตัวและช่องทางติดต่อ
+document.title = PROFILE.name + " | Portfolio";
+document.getElementById("brand").textContent = PROFILE.short;
+document.getElementById("name").textContent = PROFILE.name;
+document.getElementById("role").textContent = PROFILE.role;
+document.getElementById("skills").innerHTML = PROFILE.skills.map(s => `<span class="tag">${esc(s)}</span>`).join("");
+document.getElementById("contact-top").innerHTML = `
+  <a class="btn primary" href="${telHref(PROFILE.phone)}">${ICONS.phone}โทร ${esc(PROFILE.phone)}</a>
+  <a class="btn" href="mailto:${esc(PROFILE.email)}">${ICONS.mail}ส่งอีเมล</a>
+  <a class="btn" href="${esc(PROFILE.github)}" target="_blank" rel="noopener">${ICONS.github}GitHub</a>`;
+document.getElementById("contact-list").innerHTML = `
+  <a class="contact-item" href="${telHref(PROFILE.phone)}"><span>เบอร์โทร</span><span>${esc(PROFILE.phone)}</span></a>
+  <a class="contact-item" href="mailto:${esc(PROFILE.email)}"><span>อีเมล</span><span>${esc(PROFILE.email)}</span></a>
+  <a class="contact-item" href="${esc(PROFILE.github)}" target="_blank" rel="noopener"><span>GitHub</span><span>${esc(PROFILE.github.replace("https://", ""))}</span></a>`;
+document.getElementById("copyright").textContent = `© ${new Date().getFullYear()} ${PROFILE.name}`;
+
+// แสดงโปรเจกต์
+function makePlaceholder(img) {
+  const d = document.createElement("div");
+  d.className = "placeholder";
+  d.textContent = isLocal ? "ใส่รูปที่ " + img.getAttribute("src") : "ภาพตัวอย่างจะอัปเดตเร็ว ๆ นี้";
+  img.replaceWith(d);
+}
+
+const root = document.getElementById("projects");
+let lastGroup = null;
+PROJECTS.forEach((p, i) => {
+  if (p.group !== lastGroup && GROUPS[p.group]) {
+    const g = GROUPS[p.group];
+    const head = document.createElement("div");
+    head.className = "group-title";
+    head.id = g.id;
+    head.innerHTML = `<h2>${esc(g.label)}</h2><p>${esc(g.title)}</p>`;
+    root.appendChild(head);
+    lastGroup = p.group;
+  }
+
+  const views = [];
+  if (p.design && p.design.length) views.push({ name: "ดีไซน์ใน Figma", items: p.design });
+  if (p.live && p.live.length) views.push({ name: p.group === "dev" && p.stack.includes("Flutter") ? "หน้าแอปที่รันจริง" : "หน้าเว็บที่รันจริง", items: p.live });
+  if (p.art && p.art.length) views.push({ name: "ผลงาน", items: p.art, gallery: true });
+  const isCapstone = p.type === "capstone";
+  const badgeText = p.badge || { capstone: "โปรเจกต์หลัก", design: "งานออกแบบ UI", graphic: "งานกราฟิก" }[p.type] || "โปรเจกต์";
+
+  const links = [
+    p.github ? `<a class="btn" href="${esc(p.github)}" target="_blank" rel="noopener">${ICONS.github}ดูโค้ดบน GitHub</a>` : "",
+    p.figma ? `<a class="btn" href="${esc(p.figma)}" target="_blank" rel="noopener">${ICONS.figma}เปิดใน Figma</a>` : ""
+  ].join("");
+
+  const sec = document.createElement("section");
+  sec.className = "project";
+  sec.setAttribute("aria-labelledby", `p${i}-title`);
+  sec.innerHTML = `
+    <div class="project-head">
+      <div>
+        <span class="badge ${isCapstone ? "capstone" : ""}">${esc(badgeText)}</span>
+        <h3 id="p${i}-title">${esc(p.title)}</h3>
+        <p class="desc">${esc(p.desc)}</p>
+        ${p.points && p.points.length ? `<ul class="points">${p.points.map(t => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+        <div class="meta">${(p.stack || []).map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>
+        ${!p.github && isCapstone ? `<p class="private-note">${ICONS.lock}โค้ดอยู่ใน repo ส่วนตัว จึงแสดงเฉพาะงานออกแบบและหน้าเว็บที่ใช้งานจริง</p>` : ""}
+      </div>
+      ${links ? `<div class="head-links">${links}</div>` : ""}
+    </div>
+    ${views.length > 1
+      ? `<div class="tabs" role="tablist" aria-label="เลือกมุมมอง">${views.map((v, j) =>
+          `<button class="tab" role="tab" aria-selected="${j === 0}" aria-controls="p${i}-panel" data-view="${j}">${v.name}</button>`).join("")}</div>`
+      : views.length === 1 ? `<div class="tabs"><span class="tab" aria-selected="true">${views[0].name}</span></div>` : ""}
+    ${views.length ? `<div class="canvas" id="p${i}-panel" role="tabpanel"></div>` : ""}`;
+  root.appendChild(sec);
+
+  const panel = sec.querySelector(".canvas");
+  const render = j => {
+    const v = views[j];
+    panel.classList.toggle("gallery", !!v.gallery);
+    panel.innerHTML = v.items.map((it, k) => `
+      <figure class="frame">
+        <figcaption class="frame-label">${esc(it.label || "")}</figcaption>
+        <button type="button" data-k="${k}" aria-label="ขยายรูป ${esc(it.label || "")}">
+          <img src="${esc(it.src)}" alt="${esc(p.title)}: ${esc(it.label || "")}" loading="lazy">
+        </button>
+      </figure>`).join("");
+    panel.querySelectorAll("img").forEach(img => {
+      img.addEventListener("error", () => makePlaceholder(img), { once: true });
+      if (img.complete && img.naturalWidth === 0) makePlaceholder(img);
+    });
+    panel.querySelectorAll(".frame button").forEach(b =>
+      b.addEventListener("click", () => {
+        if (!b.querySelector("img")) return; // ยังไม่มีรูป ไม่ต้องเปิดดูขนาดใหญ่
+        openLightbox(v.items, +b.dataset.k, p.title);
+      }));
+  };
+  sec.querySelectorAll("button.tab").forEach(t => t.addEventListener("click", () => {
+    sec.querySelectorAll("button.tab").forEach(x => x.setAttribute("aria-selected", String(x === t)));
+    render(+t.dataset.view);
+  }));
+  if (views.length) render(0);
+});
+
+// กดรูปเพื่อดูขนาดใหญ่
+const lb = document.getElementById("lightbox");
+const lbImg = document.getElementById("lb-img");
+const lbCap = document.getElementById("lb-caption");
+const lbPrev = document.getElementById("lb-prev");
+const lbNext = document.getElementById("lb-next");
+let lbItems = [], lbIndex = 0, lbTitle = "", lastFocus = null;
+
+function showLb() {
+  const it = lbItems[lbIndex];
+  lbImg.src = it.src;
+  lbImg.alt = lbTitle + ": " + (it.label || "");
+  lbCap.textContent = `${lbTitle} | ${it.label || ""} (${lbIndex + 1}/${lbItems.length})`;
+  lbPrev.style.display = lbNext.style.display = lbItems.length > 1 ? "" : "none";
+}
+function openLightbox(items, k, title) {
+  lastFocus = document.activeElement;
+  lbItems = items; lbIndex = k; lbTitle = title;
+  showLb();
+  lb.classList.add("open");
+  document.body.style.overflow = "hidden";
+  document.getElementById("lb-close").focus();
+}
+function closeLightbox() {
+  lb.classList.remove("open");
+  document.body.style.overflow = "";
+  if (lastFocus) lastFocus.focus();
+}
+const step = d => { lbIndex = (lbIndex + d + lbItems.length) % lbItems.length; showLb(); };
+document.getElementById("lb-close").onclick = closeLightbox;
+lbPrev.onclick = () => step(-1);
+lbNext.onclick = () => step(1);
+lb.addEventListener("click", e => { if (e.target === lb) closeLightbox(); });
+document.addEventListener("keydown", e => {
+  if (!lb.classList.contains("open")) return;
+  if (e.key === "Escape") closeLightbox();
+  if (e.key === "ArrowLeft") step(-1);
+  if (e.key === "ArrowRight") step(1);
+});
+</script>
+</body>
+</html>
