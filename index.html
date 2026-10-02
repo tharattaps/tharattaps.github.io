@@ -13,38 +13,53 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
+<meta name="theme-color" content="#FFF2B2">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Portfolio</title>
 <meta name="description" content="Portfolio ธรัฐภรณ์ ศรีดาวเรือง: Front-end, UX/UI และ Graphic Design">
 <meta property="og:title" content="ธรัฐภรณ์ ศรีดาวเรือง | Portfolio">
 <meta property="og:description" content="นักศึกษาวิศวกรรมซอฟต์แวร์ ถนัด Front-end, UX/UI และ Graphic Design">
 <meta property="og:image" content="images/graphic/elf-bubble-tea.jpg">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232F5BEA'/><text x='16' y='22' font-size='16' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'>T</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23ABC6E7'/><text x='16' y='22' font-size='16' font-family='sans-serif' font-weight='700' fill='%2322304A' text-anchor='middle'>T</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  /* โทนสีหลัก: เหลืองอ่อน #FFF2B2 · ฟ้า #ABC6E7 · เหลืองทอง #FFE08A */
   :root {
-    --paper: #EEF1F4;
+    --yellow: #FFF2B2;
+    --blue: #ABC6E7;
+    --gold: #FFE08A;
+    --paper: #FFFCF0;
     --surface: #FFFFFF;
-    --ink: #18243A;
-    --muted: #5B6676;
-    --line: #CDD4DD;
-    --accent: #2F5BEA;
-    --accent-ink: #FFFFFF;
-    --canvas: #E3E7EC;
-    --dot: #C3CAD3;
+    --ink: #22304A;
+    --muted: #5A6478;
+    --line: #EADFB4;
+    --blue-ink: #3D679F;
+    --accent: var(--gold);
+    --accent-ink: #22304A;
+    --canvas: #EEF4FB;
+    --dot: #C5D7EE;
+    --tag-bg: #FFF2B2;
+    --tag-ink: #5E4C10;
+    --hero: linear-gradient(135deg, #FFF2B2 0%, #FFF8DA 45%, #DCE8F6 75%, #ABC6E7 100%);
+    --band: #EEF4FB;
+    --shadow: rgba(61, 103, 159, 0.14);
     --font: "IBM Plex Sans Thai", "Sarabun", "Leelawadee UI", "Tahoma", system-ui, sans-serif;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --paper: #141B26; --surface: #1C2533; --ink: #E7ECF3; --muted: #9AA6B5;
-      --line: #2E3A4B; --accent: #7C9BFF; --accent-ink: #0F1724; --canvas: #18212E; --dot: #2C3848;
+      --paper: #161C2B; --surface: #1F2738; --ink: #F3EFDD; --muted: #A9B3C6; --line: #33405A;
+      --blue-ink: #ABC6E7; --accent: #FFE08A; --accent-ink: #22304A; --canvas: #1B2334; --dot: #33405A;
+      --tag-bg: rgba(255, 242, 178, 0.14); --tag-ink: #FFF2B2;
+      --hero: linear-gradient(135deg, #2B2A1D 0%, #191F2E 50%, #1E2B42 100%); --band: #1A2131; --shadow: rgba(0, 0, 0, 0.35);
     }
   }
   :root[data-theme="dark"] {
-    --paper: #141B26; --surface: #1C2533; --ink: #E7ECF3; --muted: #9AA6B5;
-    --line: #2E3A4B; --accent: #7C9BFF; --accent-ink: #0F1724; --canvas: #18212E; --dot: #2C3848;
+    --paper: #161C2B; --surface: #1F2738; --ink: #F3EFDD; --muted: #A9B3C6; --line: #33405A;
+    --blue-ink: #ABC6E7; --accent: #FFE08A; --accent-ink: #22304A; --canvas: #1B2334; --dot: #33405A;
+    --tag-bg: rgba(255, 242, 178, 0.14); --tag-ink: #FFF2B2;
+    --hero: linear-gradient(135deg, #2B2A1D 0%, #191F2E 50%, #1E2B42 100%); --band: #1A2131; --shadow: rgba(0, 0, 0, 0.35);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -54,7 +69,7 @@
   body { font-family: var(--font); background: var(--paper); color: var(--ink); line-height: 1.7; font-size: 17px; }
   img { max-width: 100%; display: block; }
   a { color: inherit; }
-  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  :focus-visible { outline: 3px solid var(--blue-ink); outline-offset: 3px; border-radius: 4px; }
 
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
@@ -67,28 +82,31 @@
   nav.bar .wrap::-webkit-scrollbar { display: none; }
   nav.bar .brand { font-weight: 700; text-decoration: none; margin-right: auto; padding-right: 16px; white-space: nowrap; }
   nav.bar a.link { text-decoration: none; color: var(--muted); font-size: 0.95rem; font-weight: 500; padding: 6px 12px; border-radius: 999px; white-space: nowrap; }
-  nav.bar a.link:hover { color: var(--ink); background: var(--surface); }
+  nav.bar a.link:hover { color: var(--ink); background: var(--yellow); }
+  nav.bar .brand::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 999px; margin-right: 8px; background: var(--gold); box-shadow: 8px 0 0 var(--blue); vertical-align: 1px; margin-right: 18px; }
 
-  header.top { padding: 72px 0 56px; border-bottom: 1px solid var(--line); }
-  .hello { font-size: 1rem; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
+  header.top { padding: 80px 0 64px; background: var(--hero); border-bottom: 1px solid var(--line); }
+  .hello { display: inline-block; font-size: 0.95rem; font-weight: 600; color: var(--accent-ink); background: var(--gold); padding: 2px 14px; border-radius: 999px; margin-bottom: 8px; }
   .name { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
   .role { margin-top: 14px; font-size: 1.15rem; color: var(--muted); max-width: 52ch; }
   .skills { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
-  .skills .tag { font-size: 0.9rem; padding: 4px 12px; background: var(--surface); border: 1px solid var(--line); }
+  .skills .tag { font-size: 0.9rem; padding: 4px 12px; background: color-mix(in srgb, var(--surface) 75%, transparent); color: var(--ink); border: 1px solid var(--blue); border-radius: 999px; }
   .contact-row { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; }
   .btn {
     display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px;
     border-radius: 999px; text-decoration: none; font-weight: 600; font-size: 1rem; white-space: nowrap;
     border: 1.5px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; font-family: inherit;
   }
-  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn.primary { background: var(--accent); border-color: var(--ink); color: var(--accent-ink); box-shadow: 3px 3px 0 var(--blue); }
+  .btn:not(.primary) { background: var(--surface); }
   .btn:hover { filter: brightness(1.08); }
   .btn svg { width: 18px; height: 18px; flex: none; }
   .head-links { display: flex; flex-direction: column; gap: 10px; align-items: stretch; }
 
   main { padding: 8px 0 40px; }
   .group-title { padding: 64px 0 0; }
-  .group-title h2 { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.04em; color: var(--muted); }
+  .group-title h2 { font-size: 0.95rem; font-weight: 700; letter-spacing: 0.06em; color: var(--blue-ink); }
+  .group-title p::after { content: ""; display: block; width: 56px; height: 6px; margin-top: 10px; border-radius: 999px; background: linear-gradient(90deg, var(--gold) 50%, var(--blue) 50%); }
   .group-title p { margin-top: 2px; font-size: 1.5rem; font-weight: 700; }
   .project { padding: 48px 0 56px; border-bottom: 1px solid var(--line); }
   .project-head { display: grid; grid-template-columns: 1fr auto; gap: 16px 32px; align-items: start; }
@@ -97,12 +115,12 @@
     display: inline-block; margin-bottom: 10px; padding: 2px 12px; border-radius: 6px;
     font-size: 0.85rem; font-weight: 600; background: var(--surface); border: 1px solid var(--line); color: var(--muted);
   }
-  .badge.capstone { color: var(--accent); border-color: var(--accent); }
+  .badge.capstone { color: var(--accent-ink); background: var(--gold); border-color: var(--gold); }
   .desc { margin-top: 12px; max-width: 64ch; }
   .points { margin: 12px 0 0 1.2em; max-width: 64ch; color: var(--ink); }
   .points li { margin-top: 4px; }
   .meta { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
-  .tag { font-size: 0.85rem; padding: 3px 10px; border-radius: 6px; background: var(--canvas); color: var(--muted); }
+  .tag { font-size: 0.85rem; padding: 3px 10px; border-radius: 6px; background: var(--tag-bg); color: var(--tag-ink); }
   .private-note { margin-top: 14px; font-size: 0.92rem; color: var(--muted); display: flex; gap: 8px; align-items: center; }
   .private-note svg { width: 16px; height: 16px; flex: none; }
 
@@ -111,7 +129,7 @@
     border: 0; background: transparent; font-family: inherit; font-size: 0.95rem; font-weight: 600;
     padding: 8px 18px; border-radius: 999px; color: var(--muted); cursor: pointer;
   }
-  .tab[aria-selected="true"] { background: var(--ink); color: var(--paper); }
+  .tab[aria-selected="true"] { background: var(--blue); color: #22304A; }
 
   /* พื้นที่แสดงรูป แบบกระดานจุดคล้าย canvas ใน Figma */
   .canvas {
@@ -123,7 +141,7 @@
   .frame-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .frame button {
     display: block; width: 100%; padding: 0; border: 0; cursor: zoom-in; background: var(--surface);
-    border-radius: 4px; overflow: hidden; box-shadow: 0 1px 0 var(--line), 0 6px 18px rgba(24, 36, 58, 0.08);
+    border-radius: 4px; overflow: hidden; box-shadow: 0 1px 0 var(--line), 0 8px 22px var(--shadow);
   }
   .frame img { width: 100%; height: auto; transition: transform .25s ease; }
   .frame button:hover img { transform: scale(1.02); }
@@ -132,7 +150,7 @@
     font-size: 0.85rem; color: var(--muted); background: var(--surface); border: 1.5px dashed var(--line);
   }
 
-  footer.contact { padding: 64px 0 80px; }
+  footer.contact { padding: 64px 0 80px; background: var(--band); border-top: 6px solid var(--yellow); }
   footer h2 { font-size: 1.8rem; font-weight: 700; }
   footer p { color: var(--muted); margin-top: 6px; }
   .contact-list { margin-top: 24px; display: grid; gap: 12px; max-width: 520px; }
@@ -142,15 +160,16 @@
   }
   .contact-item span:first-child { color: var(--muted); font-size: 0.92rem; }
   .contact-item span:last-child { font-weight: 600; word-break: break-all; text-align: right; }
-  .contact-item:hover { border-color: var(--accent); }
+  .contact-item:hover { border-color: var(--blue); background: var(--yellow); color: #22304A; }
+  .contact-item:hover span:first-child { color: #5A6478; }
   .copyright { margin-top: 40px; font-size: 0.85rem; }
 
   /* ปุ่มกลับขึ้นบนสุด มุมขวาล่าง */
   .to-top {
     position: fixed; z-index: 30; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom, 0px));
     width: 48px; height: 48px; border-radius: 999px; border: 0; cursor: pointer;
-    display: grid; place-items: center; background: var(--accent); color: var(--accent-ink);
-    box-shadow: 0 6px 18px rgba(24, 36, 58, 0.25);
+    display: grid; place-items: center; background: var(--gold); color: #22304A; border: 2px solid #22304A;
+    box-shadow: 3px 3px 0 var(--blue);
     opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity .2s, transform .2s, visibility .2s;
   }
   .to-top.show { opacity: 1; visibility: visible; transform: none; }
